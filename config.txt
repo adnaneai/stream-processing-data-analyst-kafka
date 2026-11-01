@@ -1,0 +1,15 @@
+# Pour produire des messages dans T1 :
+
+docker exec -it kafka kafka-console-producer --bootstrap-server localhost:9092 --topic T1
+
+# Pour consommer les messages du topic T1 :
+
+docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic T1 --from-beginning
+
+# Pour consommer les messages du topic T2 avec streams :
+
+docker exec -it kafka kafka-console-consumer --bootstrap-server broker:9092 --topic T2 --from-beginning --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+
+# Pour supprimer le topic :
+
+docker exec -it kafka kafka-topics --bootstrap-server broker:9092 --delete --topic T1

@@ -1,0 +1,28 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: stream-processing-kafka
+  cloud:
+    function:
+      definition: pageEventConsumer;pageEventSupplier;kStreamFunction
+    stream:
+      bindings:
+        pageEventConsumer-in-0:
+          destination: T1
+        pageEventSupplier-out-0:
+          destination: T1
+          producer:
+            poller:
+              fixed-delay: 200
+        kStreamFunction-in-0:
+          destination: T1
+        kStreamFunction-out-0:
+          destination: T2
+      kafka:
+        streams:
+          binder:
+            configuration:
+              commit:
+                interval:
+                  ms: 1000
